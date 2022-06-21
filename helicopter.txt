@@ -1,0 +1,91 @@
+      colour 0+128
+      cls
+      colour 15
+      print "click anywhere in the window. above the helicopter the helicopter will take off"
+      print "left click, and the helicopter will fly to left"
+      print "right click, and the helicopter will fly to the right"
+      print "click scroll-wheel, and the helicopter will face you"
+      install @lib$+"SPRITELIB"
+      if fn_initsprites(15) = 0 stop
+      on error sys "MessageBox", @hwnd%, report$, 0, 0 : proc_exitsprites : quit
+      spin1$="images\"+"bluemax1.bmp"
+      spin2$="images\"+"bluemax2.bmp"
+      spin3$="images\"+"bluemax3.bmp"
+      spin4$="images\"+"bluemax4.bmp"
+      spin5$="images\"+"bluemax5.bmp"
+      spin6$="images\"+"bluemax6.bmp"
+      spin7$="images\"+"bluemax7.bmp"
+      spin8$="images\"+"bluemax8.bmp"
+      spin9$="images\"+"bluemax9.bmp"
+      spin10$="images\"+"bluemax10.bmp"
+      spin11$="images\"+"bluemax11.bmp"
+      spin12$="images\"+"bluemax12.bmp"
+      spin13$="images\"+"bluemax13.bmp"
+      spin14$="images\"+"bluemax14.bmp"
+      spin15$="images\"+"bluemax15.bmp"
+      if fn_createspritefrombmp(0, spin1$) = 0 stop
+      if fn_createspritefrombmp(1, spin2$) = 0 stop
+      if fn_createspritefrombmp(2, spin3$) = 0 stop
+      if fn_createspritefrombmp(3, spin4$) = 0 stop
+      if fn_createspritefrombmp(4, spin5$) = 0 stop
+      if fn_createspritefrombmp(5, spin6$) = 0 stop
+      if fn_createspritefrombmp(6, spin7$) = 0 stop
+      if fn_createspritefrombmp(7, spin8$) = 0 stop
+      if fn_createspritefrombmp(8, spin9$) = 0 stop
+      if fn_createspritefrombmp(9, spin10$) = 0 stop
+      if fn_createspritefrombmp(10, spin11$) = 0 stop
+      if fn_createspritefrombmp(11, spin12$) = 0 stop
+      if fn_createspritefrombmp(12, spin13$) = 0 stop
+      if fn_createspritefrombmp(13, spin14$) = 0 stop
+      if fn_createspritefrombmp(14, spin15$) = 0 stop
+      frame% = 0
+      fc%=0
+      df%=0
+      dy%=0
+      dx%=0
+      px%=1284:py%=312
+      repeat
+        keyb$=inkey$(0)
+        mouse mx%,my%,mb%
+        rem //
+        fc% = fc% +1
+        proc_movesprite(0,px%-256,py%+256,-1*(frame% = 0))
+        proc_movesprite(1,px%-256,py%+256,-1*(frame% = 1))
+        proc_movesprite(2,px%-256,py%+256,-1*(frame% = 2))
+        proc_movesprite(3,px%-256,py%+256,-1*(frame% = 3))
+        proc_movesprite(4,px%-256,py%+256,-1*(frame% = 4))
+        proc_movesprite(5,px%-256,py%+256,-1*(frame% = 5))
+        proc_movesprite(6,px%-256,py%+256,-1*(frame% = 6))
+        proc_movesprite(7,px%-256,py%+256,-1*(frame% = 7))
+        proc_movesprite(8,px%-256,py%+256,-1*(frame% = 8))
+        proc_movesprite(9,px%-256,py%+256,-1*(frame% = 9))
+        proc_movesprite(10,px%-256,py%+256,-1*(frame% = 10))
+        proc_movesprite(11,px%-256,py%+256,-1*(frame% = 11))
+        proc_movesprite(12,px%-256,py%+256,-1*(frame% = 12))
+        proc_movesprite(13,px%-256,py%+256,-1*(frame% = 13))
+        proc_movesprite(14,px%-256,py%+256,-1*(frame% = 14))
+        wait 4
+        rem
+        rem //
+        if mb% <> 0 and py%<my% then dy%=dy%+1
+        if mb% <> 0 and py%>my% then dy%=dy%-1
+        if py% <> 0 and mb%=4 then dx%=dx%-1
+        if py%<> 0 and mb%=1 then dx%=dx%+1
+        rem //
+        if mb% = 4 and df%=0 then df%=1:mb%=0
+        if mb% = 1 and df%=1 then df%=0:mb%=0
+        if mb% = 1 and df%=0 then df%=2:mb%=0
+        if mb% = 4 and df%=2 then df%=0:mb%=0
+        if mb% = 2 then df%=0:mb%=0
+        py%=py%+dy%:
+        px%=px%+dx%
+        if px%<256 then px%=256:dx%=0
+        if px%>2528 then px%=2528:dx%=0
+        if py%>1142 then py%=1142
+        if py%<312 then py%=312:dy%=0:dx%=0
+        rem //
+        rem //
+        if keyb$<>"" then print px%,py%
+        frame%=fc%+5*df%
+        if fc% = 4 then fc%=-1
+      until false
